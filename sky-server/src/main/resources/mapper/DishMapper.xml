@@ -10,4 +10,40 @@
             (#{name},#{categoryId},#{price},#{image},#{description},#{createTime},#{updateTime},#{createUser},#{updateUser},#{status})
     </insert>
 
+    <select id="pageQuery" resultType="com.sky.vo.DishVO">
+        select d.*,c.name as categoryName from dish d left outer join category c on d.category_id = c.id
+        <where>
+            <if test="name!=null">
+                and d.name like concat('%',#{name},'%')
+            </if>
+            <if test="categoryId!=null">
+                and d.category_id = #{categoryId}
+            </if>
+            <if test="status!=null">
+                and d.status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteByIds">
+        delete from dish where id in
+        <foreach collection="ids" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update">
+        update dish
+        <set>
+            <if test="name!=null">name = #{name},</if>
+            <if test="categoryId!=null">categoryId = #{categoryId},</if>
+            <if test="price!=null">price = #{price},</if>
+            <if test="image!=null">image = #{image},</if>
+            <if test="description!=null">description = #{description},</if>
+            <if test="status!=null">status = #{status},</if>
+            <if test="updateTime!=null">updateTime = #{updateTime},</if>
+            <if test="updateUser!=null">updataUser = #{updateUser},</if>
+        </set>
+        where id = #{id}
+    </update>
 </mapper>
