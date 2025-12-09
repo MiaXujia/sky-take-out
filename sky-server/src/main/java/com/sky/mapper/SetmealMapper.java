@@ -30,8 +30,8 @@ public interface SetmealMapper {
      * @param setmeal
      * @return
      */
-    @Select("select * from setmeal where category_id = #{sm.categoryId} and status=#{sm.status}")
-    List<Setmeal> list(@Param("sm") Setmeal setmeal);
+    @Select("select * from setmeal where category_id = #{categoryId} and status=#{status}")
+    List<Setmeal> list(Setmeal setmeal);
 
     /**
      * 根据套餐id查询菜品选项
