@@ -9,6 +9,7 @@ import com.sky.vo.DishItemVO;
 import com.sky.vo.SetmealVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -29,7 +30,8 @@ public interface SetmealMapper {
      * @param setmeal
      * @return
      */
-    List<Setmeal> list(Setmeal setmeal);
+    @Select("select * from setmeal where category_id = #{sm.categoryId} and status=#{sm.status}")
+    List<Setmeal> list(@Param("sm") Setmeal setmeal);
 
     /**
      * 根据套餐id查询菜品选项
